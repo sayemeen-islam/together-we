@@ -80,6 +80,12 @@ export default function RegisterPage() {
     }
   };
 
+        const handleGoogleRegister = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <main className="min-h-screen bg-background px-4 py-10">
       <div className="mx-auto grid min-h-[85vh] max-w-5xl items-center gap-10 md:grid-cols-2">
@@ -291,6 +297,7 @@ export default function RegisterPage() {
               type="button"
               variant="outline"
               className="h-11 w-full gap-3"
+              onClick={handleGoogleRegister}
             >
               <span className="font-bold text-lg">G</span>
               Sign up with Google
