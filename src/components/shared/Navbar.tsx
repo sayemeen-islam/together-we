@@ -29,16 +29,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   // Temporary UI state.
   // Replace these with your actual authentication data.
-  const isLoggedIn = true;
+  // const isLoggedIn = true;
 
-  const user = {
-    name: "John Doe",
-    image: "",
-  };
+const { data: session } = authClient.useSession()
+console.log(session?.user,'from nav');
+const user=session?.user
+const router=useRouter()
+
+const handleLogout=()=>{
+  authClient.signOut();
+  router.push('/login')
+}
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
@@ -66,7 +73,7 @@ export default function Navbar() {
 
         {/* Authentication Actions */}
         <div className="flex items-center gap-3">
-          {!isLoggedIn ? (
+           {!user ? (
             <Link href="/login">
               <Button className="gap-2">
                 <LogIn size={16} />
@@ -83,7 +90,7 @@ export default function Navbar() {
                   className="group relative flex size-10 items-center justify-center rounded-full outline-none"
                 >
                   <Avatar className="size-9 border-2 border-secondary">
-                    <AvatarImage src={user.image} alt={user.name} />
+                    <AvatarImage src={user.image as string} alt={user.name} />
                     <AvatarFallback className="bg-secondary text-secondary-foreground font-semibold">
                       {user.name
                         .split(" ")
@@ -136,7 +143,7 @@ export default function Navbar() {
 
                         <DropdownMenuSeparator />
 
-                        <DropdownMenuItem className="text-destructive focus:text-destructive">
+                        <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleLogout}>
                           <LogOut className="mr-2 size-4" />
                           Logout
                         </DropdownMenuItem>
