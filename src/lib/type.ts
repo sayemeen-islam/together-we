@@ -6,5 +6,6 @@ export type TEvent = {
   thumbnail: string;
   location: string;
   eventDate: string;
-  createdByEmail: string;
+  userName:string
+  email: string;
 };

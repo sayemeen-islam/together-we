@@ -102,7 +102,8 @@ export default function CreateEventPage() {
 
     const eventData = {
       ...values,
-      createdByEmail: session.user.email,
+      userName:session.user.name,
+      email: session.user.email,
     };
 
     try {
