@@ -57,6 +57,9 @@ const eventTypes = [
   "Cleanup",
   "Plantation",
   "Donation",
+  "Healthcare",
+  "Blood Donation",
+  "Education",
   "Awareness",
   "Community Support",
   "Other",
@@ -84,17 +87,14 @@ export default function CreateEventPage() {
     },
   });
 
-
-
   const selectedType = useWatch({
     control,
     name: "eventType",
   });
 
   const onSubmit = async (values: EventFormValues) => {
-    console.log(values, 'formValues');
-    
-    
+    console.log(values, "formValues");
+
     if (!session?.user?.email) {
       toast.error("Please sign in to create an event.");
       return;
@@ -120,16 +120,14 @@ export default function CreateEventPage() {
       if (!response.ok) {
         throw new Error("Failed to create event");
       }
-      
-      const resData=await response.json()
-      if(resData.insertedId){
-        console.log(resData,'reponse from server for post req');
+
+      const resData = await response.json();
+      if (resData.insertedId) {
+        console.log(resData, "reponse from server for post req");
 
         toast.success("Your event has been created successfully!");
         router.push("/events");
       }
-      
-
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong. Please try again.");
