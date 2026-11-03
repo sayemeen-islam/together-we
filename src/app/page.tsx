@@ -1,5 +1,6 @@
 import Banner from "@/components/home/Banner";
 import Features from "@/components/home/Features";
+import Gallery from "@/components/home/Gallery";
 import RecentUpcomingEvents from "@/components/home/RecentUpcomingEvents";
 import Navbar from "@/components/shared/Navbar";
 
@@ -10,6 +11,7 @@ export default function Home() {
        <Banner></Banner>
        <Features></Features>
        <RecentUpcomingEvents></RecentUpcomingEvents>
+       <Gallery></Gallery>
    </div>
   );
 }
