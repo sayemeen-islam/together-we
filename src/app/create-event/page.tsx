@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 // Get today's date in local time (not UTC)
 const getToday = () => {
@@ -92,48 +93,49 @@ export default function CreateEventPage() {
     name: "eventType",
   });
 
-  const onSubmit = async (values: EventFormValues) => {
-    console.log(values, "formValues");
 
-    if (!session?.user?.email) {
-      toast.error("Please sign in to create an event.");
+const onSubmit = async (values: EventFormValues) => {
+  if (!session?.user?.email) {
+    toast.error("Please sign in to create an event.");
+    return;
+  }
+
+  try {
+    const token = await getTokenFromClient();
+
+    if (!token) {
+      toast.error("Authentication failed. Please sign in again.");
       return;
     }
 
-    const eventData = {
-      ...values,
-      userName:session.user.name,
-      email: session.user.email,
-    };
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events/create`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(eventData),
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      );
+        body: JSON.stringify(values),
+      },
+    );
 
-      if (!response.ok) {
-        throw new Error("Failed to create event");
-      }
-
-      const resData = await response.json();
-      if (resData.insertedId) {
-        console.log(resData, "reponse from server for post req");
-
-        toast.success("Your event has been created successfully!");
-        router.push("/events");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong. Please try again.");
+    if (!response.ok) {
+      throw new Error("Failed to create event");
     }
-  };
+
+    const resData = await response.json();
+
+    if (resData.insertedId) {
+      toast.success("Your event has been created successfully!");
+      router.push("/events");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong. Please try again.");
+  }
+};
+
 
   if (isPending || !session?.user) {
     return (
