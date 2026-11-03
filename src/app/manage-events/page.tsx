@@ -1,9 +1,10 @@
-import DeleteEventBtn from "@/components/events/DeleteEventBtn";
+
+
+import ManageEventCard from "@/components/events/ManageEventCard";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
 import { TEvent } from "@/lib/type";
-import { CalendarDays, MapPin, Pencil, Trash2 } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import Link from "next/link";
-
 
 export default async function ManageEventsPage() {
   const token = await getTokenFromServer();
@@ -51,56 +52,16 @@ export default async function ManageEventsPage() {
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {events.map((event) => (
-                <article
-                  key={event._id}
-                  className="overflow-hidden rounded-2xl border border-[#EAE5DF] bg-white"
-                >
-                  <img
-                    src={event.thumbnail}
-                    alt={event.title}
-                    className="h-48 w-full object-cover"
-                  />
-
-                  <div className="p-5">
-                    <span className="text-xs font-semibold text-[#687A45]">
-                      {event.eventType}
-                    </span>
-
-                    <h2 className="mt-2 line-clamp-1 text-lg font-bold text-[#30352B]">
-                      {event.title}
-                    </h2>
-
-                    <div className="mt-4 space-y-2 text-sm text-[#77766F]">
-                      <p className="flex items-center gap-2">
-                        <CalendarDays size={16} className="text-[#C76B4A]" />
-                        {event.eventDate}
-                      </p>
-
-                      <p className="flex items-center gap-2">
-                        <MapPin size={16} className="text-[#687A45]" />
-                        {event.location}
-                      </p>
-                    </div>
-
-                    <div className="mt-5 flex gap-3 border-t border-[#EAE5DF] pt-4">
-                      <Link
-                        href={`/manage-events/${event._id}/edit`}
-                        className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[#687A45] px-3 py-2.5 text-sm font-semibold text-[#687A45] transition hover:bg-[#687A45] hover:text-white"
-                      >
-                        <Pencil size={15} />
-                        Edit
-                      </Link>
-
-                      <DeleteEventBtn id={event._id!} />
-                    </div>
-                  </div>
-                </article>
+                <ManageEventCard key={event._id} event={event} />
               ))}
             </div>
           </>
         ) : (
           <div className="rounded-2xl border border-dashed border-[#DCD6CC] bg-white px-5 py-16 text-center">
-            <CalendarDays size={36} className="mx-auto text-[#687A45]" />
+            <CalendarDays
+              size={36}
+              className="mx-auto text-[#687A45]"
+            />
 
             <h2 className="mt-4 text-xl font-bold text-[#30352B]">
               No Events Created Yet

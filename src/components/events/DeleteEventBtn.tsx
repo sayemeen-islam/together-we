@@ -39,7 +39,7 @@ export default function DeleteEventBtn({ id }: { id: string }) {
   return (
     <button
       onClick={handleDelete}
-      className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[#E8C8BD] px-3 py-2.5 text-sm font-semibold text-[#C76B4A] transition hover:bg-[#C76B4A] hover:text-white"
+      className="flex  flex-1 items-center justify-center gap-2 rounded-lg border border-[#E8C8BD] px-3 py-2.5 text-sm font-semibold text-[#C76B4A] transition hover:bg-[#C76B4A] hover:text-white"
     >
       <Trash2 size={15} />
       Delete
