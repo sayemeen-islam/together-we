@@ -1,12 +1,20 @@
-
 import EventCard from "@/components/events/EventCard";
 import { TEvent } from "@/lib/type";
 
 export default async function UpcomingEventsPage() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events`,{
-    cache: 'no-store'
-  });
-  const events = await res.json();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch upcoming events");
+  }
+
+  const events: TEvent[] = await res.json();
+
   return (
     <main className="min-h-screen bg-[#FAF8F5]">
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
@@ -32,9 +40,15 @@ export default async function UpcomingEventsPage() {
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 lg:gap-8">
-          {
-            events?.map((event:TEvent)=><EventCard key={event._id}  event={event}></EventCard>)
-          }
+          {events.length > 0 ? (
+            events.map((event: TEvent) => (
+              <EventCard key={event._id} event={event} />
+            ))
+          ) : (
+            <p className="col-span-full py-16 text-center text-[#77766F]">
+              No upcoming events available at the moment.
+            </p>
+          )}
         </div>
 
         {/* Bottom Note */}

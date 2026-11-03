@@ -26,6 +26,7 @@ const EventCard = ({event}:{event:TEvent}) => {
     }
   );
 
+
   return (
     <article className="group overflow-hidden rounded-2xl border border-[#EAE5DF] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#687A45]/10">
 
