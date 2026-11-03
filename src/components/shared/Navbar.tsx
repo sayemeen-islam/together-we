@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/tooltip";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Navbar() {
   // Temporary UI state.
@@ -45,6 +46,7 @@ const router=useRouter()
 const handleLogout=()=>{
   authClient.signOut();
   router.push('/login')
+  toast.success("You have been logged out successfully!");
 }
 
   return (
