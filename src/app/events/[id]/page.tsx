@@ -1,35 +1,34 @@
+
+import JoinEventBtn from "@/components/events/JoinEventBtn";
 import { TEvent } from "@/lib/type";
 import {
   CalendarDays,
   MapPin,
   Tag,
   User,
-  
   Heart,
   ArrowLeft,
   HandHeart,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 
-export default async function EventDetailsPage({ params }: {params:Promise<{id:string}>}) {
-   const { id } = await params;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/event/${id}`);
-  // if (!res.ok) notFound();
-  const event:TEvent = await res.json();
-  console.log(event,'res in detail pg');
-  
-  // Sample event data for UI design
-  // const event = {
-  //   title: "Donate Blood, Save Lives",
-  //   description:
-  //     "Every drop of blood can make a difference. Join our voluntary blood donation campaign and help provide life-saving support to patients in need. Together, we can build a healthier and more caring community.",
-  //   eventType: "Blood Donation",
-  //   location: "Farmgate, Dhaka",
-  //   eventDate: "November 25, 2026",
-  //   thumbnail:
-  //     "https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=1400&q=80",
-  //   organizer: "Community Care Team",
-  // };
+export default async function EventDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/event/${id}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch event details");
+  }
+
+  const event: TEvent = await res.json();
 
   return (
     <main className="min-h-screen bg-[#FAF8F5]">
@@ -171,16 +170,14 @@ export default async function EventDetailsPage({ params }: {params:Promise<{id:s
                 <MapPin size={18} className="text-[#687A45]" />
                 <span>{event.location}</span>
               </div>
+
+              <div className="flex items-center gap-3 text-sm text-[#77766F]">
+                <Users size={18} className="text-[#687A45]" />
+                <span>{event.participantCount ?? 0} people joined</span>
+              </div>
             </div>
 
-            {/* UI only: Join functionality not implemented */}
-            <button
-              type="button"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#C76B4A] px-5 py-3.5 font-semibold text-white transition hover:bg-[#AD583B] active:scale-[0.98]"
-            >
-              <Heart size={18} />
-              Join Event
-            </button>
+            <JoinEventBtn event={event} />
 
             <p className="mt-4 text-center text-xs leading-5 text-[#929087]">
               Be a part of something meaningful. Every contribution counts!

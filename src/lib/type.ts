@@ -8,4 +8,5 @@ export type TEvent = {
   eventDate: string;
   userName:string
   email: string;
+  participantCount:number
 };
