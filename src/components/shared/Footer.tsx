@@ -77,7 +77,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C76B4A] dark:bg-primary">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                 <Users size={25} />
               </span>
 

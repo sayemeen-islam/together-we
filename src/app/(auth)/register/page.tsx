@@ -148,7 +148,7 @@ export default function RegisterPage() {
               href="/"
               className="flex items-center justify-center gap-2 md:hidden"
             >
-              <HeartHandshake className="text-primary" size={27} />
+              <Users className="text-primary" size={27} />
               <span className="text-xl font-bold text-foreground">
                 Together<span className="text-primary">We</span>
               </span>
@@ -320,7 +320,7 @@ export default function RegisterPage() {
                 src="/Google-logo.svg.webp"
                 alt="Google"
               />
-              Google
+              Continue with Google
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">

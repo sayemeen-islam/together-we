@@ -96,7 +96,7 @@ export default function CreateEventPage() {
 
   const onSubmit = async (values: EventFormValues) => {
     if (!session?.user?.email) {
-      toast.error("Please sign in to create an event.");
+      toast.error("Please login to create an event.");
       return;
     }
 
@@ -136,13 +136,6 @@ export default function CreateEventPage() {
     }
   };
 
-  if (isPending || !session?.user) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center bg-background">
-        <Loader2 className="animate-spin text-secondary" size={30} />
-      </div>
-    );
-  }
 
   return (
     <main className="min-h-screen bg-background px-4 py-12 text-foreground md:px-8 ">
@@ -168,7 +161,7 @@ export default function CreateEventPage() {
         </div>
 
         {/* Form Card */}
-        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="overflow-hidden rounded-2xl md:w-150 mx-auto border border-border bg-card shadow-sm">
           {/* Card Header */}
           <div className="border-b border-border bg-muted/40 px-6 py-5 md:px-10">
             <h2 className="text-lg font-bold text-card-foreground">
@@ -181,7 +174,7 @@ export default function CreateEventPage() {
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-7 p-6 md:p-10"
+            className="space-y-7 p-6  md:p-10"
           >
             {/* Event Title */}
             <div className="space-y-2">

@@ -29,14 +29,25 @@ import ModeToggle from "./ModeToggle";
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
-  console.log(session?.user, "from nav");
   const user = session?.user;
   const router = useRouter();
 
   const handleLogout = () => {
-    authClient.signOut();
-    router.push("/login");
-    toast.success("Logged out successfully!");
+    authClient.signOut({
+        fetchOptions: {
+      onSuccess: () => {
+      
+        toast.success("Logged out successfully!");
+        
+      
+        router.push("/login"); 
+      },
+      onError: (ctx) => {
+        toast.error(ctx.error.message || "Failed to log out.");
+      }
+    },
+  
+    });
   };
 
   return (
@@ -48,13 +59,13 @@ export default function Navbar() {
             <Users size={21} />
           </div>
 
-          <span className="text-xl font-bold tracking-tight text-foreground">
+          <span className="hidden sm:flex text-xl font-bold tracking-tight text-foreground">
             Together<span className="text-primary">We</span>
           </span>
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden items-center gap-6 md:flex">
+        <div className=" items-center gap-6 md:flex">
           <Link
             href="/events"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
