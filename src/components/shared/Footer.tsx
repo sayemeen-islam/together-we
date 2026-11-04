@@ -71,22 +71,22 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#30352B] text-white">
+    <footer className="bg-[#30352B] text-white dark:border-t dark:border-border dark:bg-card dark:text-card-foreground">
       <div className="mx-auto max-w-7xl px-5 pt-16 pb-8 sm:px-8 lg:px-12">
-        <div className="grid gap-12 border-b border-white/15 pb-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid gap-12 border-b border-white/15 pb-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8 dark:border-border">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C76B4A]">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C76B4A] dark:bg-primary">
                 <Users size={25} />
               </span>
 
               <span className="text-2xl font-bold tracking-tight">
-                Together<span className="text-[#C76B4A]">We</span>
+                Together<span className="text-[#C76B4A] dark:text-primary">We</span>
               </span>
             </Link>
 
-            <p className="mt-5 max-w-sm text-sm leading-7 text-white/65">
+            <p className="mt-5 max-w-sm text-sm leading-7 text-white/65 dark:text-muted-foreground">
               Bringing people together through kindness, compassion, and
               community service. Every small action can create a meaningful
               difference.
@@ -98,7 +98,7 @@ export default function Footer() {
                   key={label}
                   aria-label={label}
                   title={label}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-white/75 transition hover:border-[#C76B4A] hover:bg-[#C76B4A] hover:text-white"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-white/75 transition hover:border-[#C76B4A] hover:bg-[#C76B4A] hover:text-white dark:border-border dark:text-muted-foreground dark:hover:border-primary dark:hover:bg-primary dark:hover:text-primary-foreground"
                 >
                   <span className="h-[18px] w-[18px]">{icon}</span>
                 </span>
@@ -115,7 +115,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/65 transition hover:text-[#D88A6D]"
+                    className="text-sm text-white/65 transition hover:text-[#D88A6D] dark:text-muted-foreground dark:hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -133,7 +133,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/65 transition hover:text-[#D88A6D]"
+                    className="text-sm text-white/65 transition hover:text-[#D88A6D] dark:text-muted-foreground dark:hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -145,19 +145,22 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="flex flex-col items-center justify-between gap-4 pt-7 text-center sm:flex-row sm:text-left">
-          <p className="text-xs text-white/50">
+          <p className="text-xs text-white/50 dark:text-muted-foreground">
             © {new Date().getFullYear()} Together We. All rights reserved.
           </p>
 
-          <p className="flex items-center gap-1.5 text-xs text-white/60">
+          <p className="flex items-center gap-1.5 text-xs text-white/60 dark:text-muted-foreground">
             Made with
-            <Heart size={13} className="fill-[#C76B4A] text-[#C76B4A]" />
+            <Heart
+              size={13}
+              className="fill-[#C76B4A] text-[#C76B4A] dark:fill-primary dark:text-primary"
+            />
             for a better community
           </p>
 
           <Link
             href="/events"
-            className="group inline-flex items-center gap-1 text-xs font-semibold text-[#D88A6D] transition hover:text-white"
+            className="group inline-flex items-center gap-1 text-xs font-semibold text-[#D88A6D] transition hover:text-white dark:text-primary dark:hover:text-card-foreground"
           >
             Make a Difference
             <ArrowUpRight

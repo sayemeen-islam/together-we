@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -138,20 +137,20 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
       <DialogTrigger>
         <Button
           variant="outline"
-          className="h-11  flex-1 border-[#687A45] text-[#687A45] hover:bg-[#687A45] hover:text-white"
+          className="h-11 flex-1 w-full border-secondary text-secondary font-semibold hover:bg-secondary dark:hover:bg-secondary hover:text-secondary-foreground"
         >
           <Pencil size={15} />
           Edit
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto border-[#EAE5DF] bg-[#FAF8F5] sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] overflow-y-auto border-border bg-card text-card-foreground sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-[#30352B]">
+          <DialogTitle className="text-2xl text-card-foreground">
             Update Event
           </DialogTitle>
 
-          <DialogDescription className="text-[#77766F]">
+          <DialogDescription className="text-muted-foreground">
             Update your event information below.
           </DialogDescription>
         </DialogHeader>
@@ -164,7 +163,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
           <div className="space-y-2">
             <label
               htmlFor="title"
-              className="text-sm font-semibold text-[#30352B]"
+              className="text-sm font-semibold text-card-foreground"
             >
               Event Title
             </label>
@@ -172,7 +171,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
             <Input
               id="title"
               {...register("title")}
-              className="h-11 border-[#E5DFD3] focus-visible:ring-[#C76B4A]"
+              className="h-11 border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
             />
 
             {errors.title && (
@@ -186,7 +185,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
           <div className="space-y-2">
             <label
               htmlFor="description"
-              className="text-sm font-semibold text-[#30352B]"
+              className="text-sm font-semibold text-card-foreground"
             >
               Event Description
             </label>
@@ -195,7 +194,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
               id="description"
               rows={4}
               {...register("description")}
-              className="resize-none border-[#E5DFD3] focus-visible:ring-[#C76B4A]"
+              className="resize-none border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
             />
 
             {errors.description && (
@@ -207,7 +206,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
 
           {/* Event Type */}
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[#30352B]">
+            <label className="text-sm font-semibold text-card-foreground">
               Event Type
             </label>
 
@@ -221,7 +220,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
                 }
               }}
             >
-              <SelectTrigger className="h-11 w-full border-[#E5DFD3]">
+              <SelectTrigger className="h-11 w-full border-input bg-background text-foreground">
                 <SelectValue placeholder="Select event type" />
               </SelectTrigger>
 
@@ -245,7 +244,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
           <div className="space-y-2">
             <label
               htmlFor="eventDate"
-              className="text-sm font-semibold text-[#30352B]"
+              className="text-sm font-semibold text-card-foreground"
             >
               Event Date
             </label>
@@ -255,7 +254,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
               type="date"
               min={getToday()}
               {...register("eventDate")}
-              className="h-11 border-[#E5DFD3]"
+              className="h-11 border-input bg-background text-foreground focus-visible:ring-primary"
             />
 
             {errors.eventDate && (
@@ -269,7 +268,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
           <div className="space-y-2">
             <label
               htmlFor="location"
-              className="text-sm font-semibold text-[#30352B]"
+              className="text-sm font-semibold text-card-foreground"
             >
               Event Location
             </label>
@@ -277,7 +276,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
             <Input
               id="location"
               {...register("location")}
-              className="h-11 border-[#E5DFD3]"
+              className="h-11 border-input bg-background text-foreground focus-visible:ring-primary"
             />
 
             {errors.location && (
@@ -291,7 +290,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
           <div className="space-y-2">
             <label
               htmlFor="thumbnail"
-              className="text-sm font-semibold text-[#30352B]"
+              className="text-sm font-semibold text-card-foreground"
             >
               Thumbnail Image URL
             </label>
@@ -300,7 +299,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
               id="thumbnail"
               type="url"
               {...register("thumbnail")}
-              className="h-11 border-[#E5DFD3]"
+              className="h-11 border-input bg-background text-foreground focus-visible:ring-primary"
             />
 
             {errors.thumbnail && (
@@ -314,7 +313,7 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#C76B4A] text-white hover:bg-[#AD583B]"
+            className="w-full bg-primary text-primary-foreground hover:opacity-90"
           >
             {isSubmitting ? (
               <>

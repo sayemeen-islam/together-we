@@ -1,4 +1,3 @@
-
 import { Camera } from "lucide-react";
 
 const galleryImages = [
@@ -36,19 +35,22 @@ const galleryImages = [
 
 export default function Gallery() {
   return (
-    <section id="gallery" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+    <section
+      id="gallery"
+      className="bg-background px-5 py-16 sm:px-8 sm:py-20 lg:px-12"
+    >
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
-          <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#687A45]">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
             <Camera size={17} />
             Our Impact in Pictures
           </span>
 
-          <h2 className="mt-3 text-3xl font-bold text-[#30352B] sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">
             Moments That Brought Us Together
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#77766F] sm:text-base">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
             Take a look back at community service activities that bring
             people together to create positive change through kindness,
             teamwork, and service.

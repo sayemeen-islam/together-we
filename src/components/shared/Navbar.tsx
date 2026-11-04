@@ -25,6 +25,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import ModeToggle from "./ModeToggle";
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
@@ -64,6 +65,7 @@ export default function Navbar() {
 
         {/* Authentication Actions */}
         <div className="flex items-center gap-3">
+          <ModeToggle></ModeToggle>
           {!user ? (
             <Link href="/login">
               <Button className="gap-2">
@@ -91,7 +93,7 @@ export default function Navbar() {
                   </Avatar>
 
                   {/* Hover Message */}
-                  <span className="pointer-events-none absolute -bottom-10 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-md bg-foreground px-3 py-1.5 text-xs text-background opacity-0 shadow-md transition-opacity group-hover:opacity-100">
+                  <span className="pointer-events-none absolute -bottom-10 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-md bg-white text-foreground px-3 py-1.5 text-xs opacity-0 shadow-md transition-opacity group-hover:opacity-100 dark:bg-accent dark:text-white/90">
                     {user.name}
                   </span>
                 </DropdownMenuTrigger>
@@ -104,33 +106,33 @@ export default function Navbar() {
                           {user.name}
                         </span>
                         <span className="text-xs font-normal text-muted-foreground">
-                          My Account
+                          {user.email}
                         </span>
                       </div>
                     </DropdownMenuLabel>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem>
-                    <Link href="/create-event">
+                    <Link href="/create-event" >
+                  <DropdownMenuItem className="flex items-center">
                       <PlusCircle className="mr-2 size-4" />
                       Create Event
-                    </Link>
                   </DropdownMenuItem>
+                    </Link>
 
-                  <DropdownMenuItem>
-                    <Link href="/manage-events">
+                    <Link href="/manage-events" >
+                  <DropdownMenuItem className="flex items-center">
                       <Settings className="mr-2 size-4" />
                       Manage Events
-                    </Link>
                   </DropdownMenuItem>
+                    </Link>
 
-                  <DropdownMenuItem>
-                    <Link href="/joined-events">
+                    <Link href="/joined-events" >
+                  <DropdownMenuItem className="flex items-center">
                       <CalendarDays className="mr-2 size-4" />
                       Joined Events
-                    </Link>
                   </DropdownMenuItem>
+                    </Link>
 
                   <DropdownMenuSeparator />
 

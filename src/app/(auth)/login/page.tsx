@@ -37,9 +37,10 @@ import { toast } from "sonner";
 const registerSchema = z.object({
  
 
-  email: z.string().trim().email("Please enter a valid email address."),
+  email: z.string().trim().min(1, "This field is required.").email("Please enter a valid email address."),
   password: z
     .string()
+    .min(1, "This field is required.")
     .min(6, "Password must be at least 6 characters.")
     .regex(/[A-Z]/, "At least one uppercase letter is required.")
     .regex(/[a-z]/, "At least one lowercase letter is required."),
@@ -173,7 +174,7 @@ export default function LoginPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="email">Email Address</FieldLabel>
+                      <FieldLabel htmlFor="email">Email Address<span className="text-primary">*</span></FieldLabel>
 
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -200,7 +201,7 @@ export default function LoginPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="password">Password</FieldLabel>
+                      <FieldLabel htmlFor="password">Password<span className="text-primary">*</span></FieldLabel>
 
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />

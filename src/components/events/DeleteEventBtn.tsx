@@ -20,7 +20,6 @@ export default function DeleteEventBtn({ id }: { id: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-
     try {
       const token = await getTokenFromClient();
 
@@ -44,41 +43,39 @@ export default function DeleteEventBtn({ id }: { id: string }) {
     }
   };
 
-
-return (
-  <AlertDialog>
-    <AlertDialogTrigger >
-      <button className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-[#E8C8BD] px-3 py-2.5 text-sm font-semibold text-[#C76B4A] transition hover:bg-[#C76B4A] hover:text-white">
-        <Trash2 size={15} />
-        Delete
-      </button>
-    </AlertDialogTrigger>
-
-    <AlertDialogContent className="border-[#EAE5DF] bg-[#FAF8F5]">
-      <AlertDialogHeader>
-        <AlertDialogTitle className="text-[#30352B]">
-          Delete Event?
-        </AlertDialogTitle>
-        <AlertDialogDescription className="text-[#77766F]">
-          Are you sure you want to delete this event? This action cannot be
-          undone.
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-
-      <AlertDialogFooter>
-        <AlertDialogCancel className="border-[#DCD6CC]">
-          Cancel
-        </AlertDialogCancel>
-
-        <AlertDialogAction
-          onClick={handleDelete}
-          className="bg-[#C76B4A] text-white hover:bg-[#AD583B]"
-        >
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger>
+        <button className="flex h-11 w-full flex-1 items-center justify-center gap-2 rounded-lg border border-primary/30 px-3 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground">
+          <Trash2 size={15} />
           Delete
-        </AlertDialogAction>
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  </AlertDialog>
-);
-  
+        </button>
+      </AlertDialogTrigger>
+
+      <AlertDialogContent className="border-border bg-card text-card-foreground">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-card-foreground">
+            Delete Event?
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-muted-foreground">
+            Are you sure you want to delete this event? This action cannot be
+            undone.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel className="border-border bg-background text-foreground hover:bg-muted">
+            Cancel
+          </AlertDialogCancel>
+
+          <AlertDialogAction
+            onClick={handleDelete}
+            className="bg-primary text-primary-foreground hover:opacity-90"
+          >
+            Delete
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 }

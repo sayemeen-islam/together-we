@@ -42,13 +42,14 @@ const getToday = () => {
 
 // Validation schema
 const eventSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
-  description: z.string().min(20, "Description must be at least 20 characters"),
-  eventType: z.string().min(1, "Please select an event type"),
-  thumbnail: z.string().url("Please enter a valid image URL"),
-  location: z.string().min(3, "Please enter a valid location"),
+  title: z.string().min(1, "This field is required.").min(5, "Title must be at least 5 characters"),
+  description: z.string().min(1, "This field is required.").min(20, "Description must be at least 20 characters"),
+  eventType: z.string().min(1, "This field is required."),
+  thumbnail: z.string().min(1, "This field is required.").url("Please enter a valid image URL"),
+  location: z.string().min(1, "This field is required.").min(3, "Please enter a valid location"),
   eventDate: z
     .string()
+    .min(1, "This field is required.")
     .refine((date) => date > getToday(), "Event date must be in the future"),
 });
 
@@ -93,89 +94,87 @@ export default function CreateEventPage() {
     name: "eventType",
   });
 
-
-const onSubmit = async (values: EventFormValues) => {
-  if (!session?.user?.email) {
-    toast.error("Please sign in to create an event.");
-    return;
-  }
-
-  try {
-    const token = await getTokenFromClient();
-
-    if (!token) {
-      toast.error("Authentication failed. Please sign in again.");
+  const onSubmit = async (values: EventFormValues) => {
+    if (!session?.user?.email) {
+      toast.error("Please sign in to create an event.");
       return;
     }
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events/create`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    try {
+      const token = await getTokenFromClient();
+
+      if (!token) {
+        toast.error("Authentication failed. Please sign in again.");
+        return;
+      }
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(values),
         },
-        body: JSON.stringify(values),
-      },
-    );
+      );
 
-    if (!response.ok) {
-      throw new Error("Failed to create event");
+      if (!response.ok) {
+        throw new Error("Failed to create event");
+      }
+
+      const resData = await response.json();
+
+      if (resData.insertedId) {
+        toast.success("Your event has been created successfully!");
+        router.push("/events");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
     }
-
-    const resData = await response.json();
-
-    if (resData.insertedId) {
-      toast.success("Your event has been created successfully!");
-      router.push("/events");
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error("Something went wrong. Please try again.");
-  }
-};
-
+  };
 
   if (isPending || !session?.user) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <Loader2 className="animate-spin text-[#687A45]" size={30} />
+      <div className="flex min-h-[60vh] items-center justify-center bg-background">
+        <Loader2 className="animate-spin text-secondary" size={30} />
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#F8F5ED] px-4 py-12 md:px-8">
+    <main className="min-h-screen bg-background px-4 py-12 text-foreground md:px-8 ">
       <div className="mx-auto max-w-5xl">
         {/* Heading */}
         <div className="mb-10 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#687A45]/10">
-            <Leaf className="text-[#687A45]" size={28} />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10">
+            <Leaf className="text-secondary" size={28} />
           </div>
 
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#687A45]">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
             Make a Difference
           </p>
 
-          <h1 className="text-3xl font-bold text-[#343B2B] md:text-4xl">
+          <h1 className="text-3xl font-bold text-foreground md:text-4xl">
             Create an Event
           </h1>
 
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[#77766B] md:text-base">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-muted-foreground md:text-base">
             Bring people together for a meaningful cause. Share your initiative
             and inspire your community to make a positive impact.
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="overflow-hidden rounded-2xl border border-[#E8E1D4] bg-white shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
           {/* Card Header */}
-          <div className="border-b border-[#E8E1D4] bg-[#FDFBF7] px-6 py-5 md:px-10">
-            <h2 className="text-lg font-bold text-[#343B2B]">
+          <div className="border-b border-border bg-muted/40 px-6 py-5 md:px-10">
+            <h2 className="text-lg font-bold text-card-foreground">
               Event Information
             </h2>
-            <p className="mt-1 text-sm text-[#888477]">
+            <p className="mt-1 text-sm text-muted-foreground">
               Fill in the details below to publish your event.
             </p>
           </div>
@@ -188,16 +187,16 @@ const onSubmit = async (values: EventFormValues) => {
             <div className="space-y-2">
               <label
                 htmlFor="title"
-                className="text-sm font-semibold text-[#343B2B]"
+                className="text-sm font-semibold text-card-foreground"
               >
-                Event Title <span className="text-[#C76B4A]">*</span>
+                Event Title <span className="text-primary">*</span>
               </label>
 
               <Input
                 id="title"
                 placeholder="e.g. Community Tree Plantation Drive"
                 {...register("title")}
-                className="h-12 border-[#E5DFD3] focus-visible:ring-[#C76B4A]"
+                className="h-12 border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
               />
 
               {errors.title && (
@@ -209,9 +208,9 @@ const onSubmit = async (values: EventFormValues) => {
             <div className="space-y-2">
               <label
                 htmlFor="description"
-                className="text-sm font-semibold text-[#343B2B]"
+                className="text-sm font-semibold text-card-foreground"
               >
-                Event Description <span className="text-[#C76B4A]">*</span>
+                Event Description <span className="text-primary">*</span>
               </label>
 
               <Textarea
@@ -219,7 +218,7 @@ const onSubmit = async (values: EventFormValues) => {
                 placeholder="Tell people about your event, its purpose and how they can participate..."
                 rows={5}
                 {...register("description")}
-                className="resize-none border-[#E5DFD3] focus-visible:ring-[#C76B4A]"
+                className="resize-none border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
               />
 
               {errors.description && (
@@ -233,8 +232,8 @@ const onSubmit = async (values: EventFormValues) => {
             <div className="grid gap-6 md:grid-cols-2">
               {/* Event Type */}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-[#343B2B]">
-                  Event Type <span className="text-[#C76B4A]">*</span>
+                <label className="text-sm font-semibold text-card-foreground">
+                  Event Type <span className="text-primary">*</span>
                 </label>
 
                 <Select
@@ -247,7 +246,7 @@ const onSubmit = async (values: EventFormValues) => {
                     }
                   }}
                 >
-                  <SelectTrigger className="h-12 w-full border-[#E5DFD3]">
+                  <SelectTrigger className="h-12 w-full border-input bg-background text-foreground">
                     <SelectValue placeholder="Select event type" />
                   </SelectTrigger>
 
@@ -271,14 +270,14 @@ const onSubmit = async (values: EventFormValues) => {
               <div className="space-y-2">
                 <label
                   htmlFor="eventDate"
-                  className="text-sm font-semibold text-[#343B2B]"
+                  className="text-sm font-semibold text-card-foreground"
                 >
-                  Event Date <span className="text-[#C76B4A]">*</span>
+                  Event Date <span className="text-primary">*</span>
                 </label>
 
                 <div className="relative">
                   <CalendarDays
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-[#687A45]"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary"
                     size={18}
                   />
                   <Input
@@ -286,7 +285,7 @@ const onSubmit = async (values: EventFormValues) => {
                     type="date"
                     min={getToday()}
                     {...register("eventDate")}
-                    className="h-12 border-[#E5DFD3] pl-10"
+                    className="h-12 border-input bg-background pl-10 text-foreground"
                   />
                 </div>
 
@@ -302,21 +301,21 @@ const onSubmit = async (values: EventFormValues) => {
             <div className="space-y-2">
               <label
                 htmlFor="location"
-                className="text-sm font-semibold text-[#343B2B]"
+                className="text-sm font-semibold text-card-foreground"
               >
-                Event Location <span className="text-[#C76B4A]">*</span>
+                Event Location <span className="text-primary">*</span>
               </label>
 
               <div className="relative">
                 <MapPin
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[#687A45]"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary"
                   size={18}
                 />
                 <Input
                   id="location"
                   placeholder="e.g. Dhanmondi Lake, Dhaka"
                   {...register("location")}
-                  className="h-12 border-[#E5DFD3] pl-10"
+                  className="h-12 border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 
@@ -331,14 +330,14 @@ const onSubmit = async (values: EventFormValues) => {
             <div className="space-y-2">
               <label
                 htmlFor="thumbnail"
-                className="text-sm font-semibold text-[#343B2B]"
+                className="text-sm font-semibold text-card-foreground"
               >
-                Thumbnail Image URL <span className="text-[#C76B4A]">*</span>
+                Thumbnail Image URL <span className="text-primary">*</span>
               </label>
 
               <div className="relative">
                 <ImagePlus
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[#687A45]"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary"
                   size={18}
                 />
                 <Input
@@ -346,7 +345,7 @@ const onSubmit = async (values: EventFormValues) => {
                   type="url"
                   placeholder="https://example.com/event-image.jpg"
                   {...register("thumbnail")}
-                  className="h-12 border-[#E5DFD3] pl-10"
+                  className="h-12 border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 
@@ -356,36 +355,36 @@ const onSubmit = async (values: EventFormValues) => {
                 </p>
               )}
 
-              <p className="text-xs text-[#999487]">
+              <p className="text-xs text-muted-foreground">
                 Provide a publicly accessible image URL.
               </p>
             </div>
 
             {/* Creator Information */}
-            <div className="flex items-center gap-3 rounded-xl bg-[#687A45]/5 p-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#687A45]/10">
-                <Users size={19} className="text-[#687A45]" />
+            <div className="flex items-center gap-3 rounded-xl border border-border bg-secondary/5 p-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/10">
+                <Users size={19} className="text-secondary" />
               </div>
 
               <div className="min-w-0">
-                <p className="text-xs text-[#888477]">Event Organizer</p>
-                <p className="truncate text-sm font-semibold text-[#343B2B]">
+                <p className="text-xs text-muted-foreground">Event Organizer</p>
+                <p className="truncate text-sm font-semibold text-card-foreground">
                   {session?.user.email}
                 </p>
               </div>
 
-              <span className="ml-auto shrink-0 rounded-full bg-[#687A45]/10 px-3 py-1 text-xs font-medium text-[#687A45]">
+              <span className="ml-auto shrink-0 rounded-full bg-secondary/10 px-3 py-1 text-xs font-medium text-secondary">
                 Verified Session
               </span>
             </div>
 
             {/* Submit */}
-            <div className="flex flex-col-reverse gap-3 border-t border-[#E8E1D4] pt-6 sm:flex-row sm:justify-end">
+            <div className="flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => router.back()}
-                className="border-[#D8D0C2] text-[#55564B]"
+                className="border-border text-foreground hover:bg-muted"
               >
                 Cancel
               </Button>
@@ -393,7 +392,7 @@ const onSubmit = async (values: EventFormValues) => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-[#C76B4A] text-white hover:bg-[#B65C3E]"
+                className="bg-primary text-primary-foreground hover:opacity-90"
               >
                 {isSubmitting ? (
                   <>
@@ -411,7 +410,7 @@ const onSubmit = async (values: EventFormValues) => {
           </form>
         </div>
 
-        <p className="mt-6 text-center text-sm text-[#888477]">
+        <p className="mt-6 text-center text-sm text-muted-foreground">
           Together, We Make a Difference.
         </p>
       </div>

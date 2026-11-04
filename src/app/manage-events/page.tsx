@@ -1,5 +1,3 @@
-
-
 import ManageEventCard from "@/components/events/ManageEventCard";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
 import { TEvent } from "@/lib/type";
@@ -26,18 +24,18 @@ export default async function ManageEventsPage() {
   const events: TEvent[] = await res.json();
 
   return (
-    <main className="min-h-screen bg-[#FAF8F5]">
+    <main className="min-h-screen bg-background">
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
-        <div className="mb-9 border-b border-[#EAE5DF] pb-7 sm:mb-12">
-          <span className="text-sm font-semibold uppercase tracking-[0.18em] text-[#687A45]">
+        <div className="mb-9 border-b border-border pb-7 sm:mb-12">
+          <span className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
             Your Activities
           </span>
 
-          <h1 className="mt-3 text-3xl font-bold text-[#30352B] sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">
             Manage Events
           </h1>
 
-          <p className="mt-3 text-sm leading-6 text-[#77766F] sm:text-base">
+          <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
             Manage the events you have created. You can update or delete
             your events whenever needed.
           </p>
@@ -45,7 +43,7 @@ export default async function ManageEventsPage() {
 
         {events.length > 0 ? (
           <>
-            <p className="mb-6 text-sm text-[#77766F]">
+            <p className="mb-6 text-sm text-muted-foreground">
               You have created {events.length}{" "}
               {events.length === 1 ? "event" : "events"}.
             </p>
@@ -57,23 +55,23 @@ export default async function ManageEventsPage() {
             </div>
           </>
         ) : (
-          <div className="rounded-2xl border border-dashed border-[#DCD6CC] bg-white px-5 py-16 text-center">
+          <div className="rounded-2xl border border-dashed border-border bg-card px-5 py-16 text-center">
             <CalendarDays
               size={36}
-              className="mx-auto text-[#687A45]"
+              className="mx-auto text-secondary"
             />
 
-            <h2 className="mt-4 text-xl font-bold text-[#30352B]">
+            <h2 className="mt-4 text-xl font-bold text-card-foreground">
               No Events Created Yet
             </h2>
 
-            <p className="mt-2 text-sm text-[#77766F]">
+            <p className="mt-2 text-sm text-muted-foreground">
               Start an initiative and bring your community together.
             </p>
 
             <Link
               href="/create-event"
-              className="mt-6 inline-block rounded-xl bg-[#C76B4A] px-6 py-3 text-sm font-semibold text-white hover:bg-[#AD583B]"
+              className="mt-6 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
             >
               Create Event
             </Link>

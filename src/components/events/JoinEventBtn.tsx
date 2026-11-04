@@ -62,7 +62,7 @@ const JoinEventBtn = ({ event }: { event: TEvent }) => {
     <button
       type="button"
       onClick={handleJoinEvent}
-      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#C76B4A] px-5 py-3.5 font-semibold text-white transition hover:bg-[#AD583B] active:scale-[0.98]"
+      className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground transition hover:opacity-90 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       <Heart size={18} />
       Join Event

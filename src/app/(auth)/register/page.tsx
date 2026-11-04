@@ -32,9 +32,9 @@ import { toast } from "sonner";
 
 // Validation schema
 const registerSchema = z.object({
-  name: z.string().trim().min(3, "Name must be at least 3 characters."),
+  name: z.string().trim().min(1, "This field is required.").min(3, "Name must be at least 3 characters."),
 
-  email: z.string().trim().email("Please enter a valid email address."),
+  email: z.string().trim().min(1, "This field is required.").email("Please enter a valid email address."),
 
   image: z.union([
     z.literal(""),
@@ -43,6 +43,7 @@ const registerSchema = z.object({
 
   password: z
     .string()
+    .min(1, "This field is required.")
     .min(6, "Password must be at least 6 characters.")
     .regex(/[A-Z]/, "At least one uppercase letter is required.")
     .regex(/[a-z]/, "At least one lowercase letter is required."),
@@ -165,7 +166,7 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="name">Full Name</FieldLabel>
+                      <FieldLabel htmlFor="name">Full Name<span className="text-primary">*</span></FieldLabel>
 
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -191,7 +192,7 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="email">Email Address</FieldLabel>
+                      <FieldLabel htmlFor="email">Email Address<span className="text-primary">*</span></FieldLabel>
 
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -244,7 +245,7 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="password">Password</FieldLabel>
+                      <FieldLabel htmlFor="password">Password<span className="text-primary">*</span></FieldLabel>
 
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />

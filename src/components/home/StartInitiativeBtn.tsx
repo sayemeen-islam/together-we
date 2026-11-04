@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -6,6 +7,7 @@ import { toast } from "sonner";
 
 const StartInitiativeBtn = () => {
   const { data: session } = authClient.useSession();
+
   const handleInitiative = () => {
     if (!session?.user) {
       toast.info("Please login to continue");
@@ -14,8 +16,12 @@ const StartInitiativeBtn = () => {
       redirect("/create-event");
     }
   };
+
   return (
-    <button className="bg-none rounded-xl border border-[#687A45] px-6 py-3.5 text-sm font-semibold text-[#687A45] transition hover:bg-[#687A45] hover:text-white" onClick={handleInitiative}>
+    <button
+      className="rounded-xl border border-secondary px-6 py-3.5 text-sm font-semibold text-secondary transition hover:bg-secondary hover:text-secondary-foreground"
+      onClick={handleInitiative}
+    >
       Start an Initiative
     </button>
   );
