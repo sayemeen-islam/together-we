@@ -1,5 +1,6 @@
 import JoinEventBtn from "@/components/events/JoinEventBtn";
 import { TEvent } from "@/lib/type";
+import { notFound } from "next/navigation";
 import {
   CalendarDays,
   MapPin,
@@ -24,11 +25,16 @@ export default async function EventDetailsPage({
   );
 
   if (!res.ok) {
+
+    if (res.status === 404) {
+      notFound();
+    }
+
     throw new Error("Failed to fetch event details");
   }
 
   const event: TEvent = await res.json();
-
+ 
   return (
     <main className="min-h-screen bg-background text-foreground mb-15">
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12">

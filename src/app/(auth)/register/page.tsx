@@ -32,9 +32,17 @@ import { toast } from "sonner";
 
 // Validation schema
 const registerSchema = z.object({
-  name: z.string().trim().min(1, "This field is required.").min(3, "Name must be at least 3 characters."),
+  name: z
+    .string()
+    .trim()
+    .min(1, "This field is required.")
+    .min(3, "Name must be at least 3 characters."),
 
-  email: z.string().trim().min(1, "This field is required.").email("Please enter a valid email address."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "This field is required.")
+    .email("Please enter a valid email address."),
 
   image: z.union([
     z.literal(""),
@@ -82,7 +90,7 @@ export default function RegisterPage() {
     }
   };
 
-        const handleGoogleRegister = async () => {
+  const handleGoogleRegister = async () => {
     await authClient.signIn.social({
       provider: "google",
     });
@@ -166,7 +174,9 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="name">Full Name<span className="text-primary">*</span></FieldLabel>
+                      <FieldLabel htmlFor="name">
+                        Full Name<span className="text-primary">*</span>
+                      </FieldLabel>
 
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -192,7 +202,9 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="email">Email Address<span className="text-primary">*</span></FieldLabel>
+                      <FieldLabel htmlFor="email">
+                        Email Address<span className="text-primary">*</span>
+                      </FieldLabel>
 
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -245,7 +257,9 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="password">Password<span className="text-primary">*</span></FieldLabel>
+                      <FieldLabel htmlFor="password">
+                        Password<span className="text-primary">*</span>
+                      </FieldLabel>
 
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -301,8 +315,12 @@ export default function RegisterPage() {
               className="h-11 w-full gap-3"
               onClick={handleGoogleRegister}
             >
-              <span className="font-bold text-lg">G</span>
-              Sign up with Google
+              <img
+                className="h-4 w-4 object-contain"
+                src="/Google-logo.svg.webp"
+                alt="Google"
+              />
+              Google
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">

@@ -1,6 +1,4 @@
-
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -12,13 +10,9 @@ import {
   ArrowRight,
   Leaf,
   Users,
-  Users2,
 } from "lucide-react";
-
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Field,
   FieldError,
@@ -35,9 +29,11 @@ import { toast } from "sonner";
 
 // Validation schema
 const registerSchema = z.object({
- 
-
-  email: z.string().trim().min(1, "This field is required.").email("Please enter a valid email address."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "This field is required.")
+    .email("Please enter a valid email address."),
   password: z
     .string()
     .min(1, "This field is required.")
@@ -49,23 +45,22 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const router=useRouter()
+  const router = useRouter();
 
-    const form = useForm<RegisterFormValues>({
-      resolver: zodResolver(registerSchema),
-      defaultValues: {
-        
-        email: "",
-        
-        password: "",
-      },
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email: "",
+
+      password: "",
+    },
+  });
+  const handleLogin = async (formData: RegisterFormValues) => {
+    console.log(formData, "from login page");
+
+    const { data, error } = await authClient.signIn.email({
+      ...formData,
     });
-    const handleLogin=async(formData:RegisterFormValues)=>{
-      console.log(formData, 'from login page');
-
-          const{data,error}=await authClient.signIn.email({
-       ...formData,
-    })
     if (error) {
       toast.error(error.message || "Registration failed.");
       return;
@@ -75,10 +70,9 @@ export default function LoginPage() {
       toast.success("Logged in successfully!");
       router.push("/");
     }
-      
-    }
+  };
 
-      const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
     });
@@ -87,7 +81,6 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-background px-4 py-10">
       <div className="mx-auto grid min-h-[85vh] max-w-5xl items-center gap-10 md:grid-cols-2">
-
         {/* Left Section */}
         <section className="hidden space-y-6 md:block">
           <Link href="/" className="inline-flex items-center gap-2">
@@ -120,19 +113,13 @@ export default function LoginPage() {
           <div className="flex gap-4 pt-4">
             <div className="rounded-2xl bg-secondary/10 p-4">
               <Users className="mb-2 text-secondary" size={25} />
-              <p className="font-semibold text-foreground">
-                Stronger Together
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Build connections
-              </p>
+              <p className="font-semibold text-foreground">Stronger Together</p>
+              <p className="text-xs text-muted-foreground">Build connections</p>
             </div>
 
             <div className="rounded-2xl bg-primary/10 p-4">
               <HeartHandshake className="mb-2 text-primary" size={25} />
-              <p className="font-semibold text-foreground">
-                Positive Impact
-              </p>
+              <p className="font-semibold text-foreground">Positive Impact</p>
               <p className="text-xs text-muted-foreground">
                 Create real change
               </p>
@@ -143,7 +130,6 @@ export default function LoginPage() {
         {/* Login Form */}
         <Card className="w-full border-border bg-card shadow-xl shadow-primary/5">
           <CardContent className="space-y-6 p-6 sm:p-9">
-
             {/* Mobile Logo */}
             <Link
               href="/"
@@ -165,16 +151,19 @@ export default function LoginPage() {
             </div>
 
             <form
-            onSubmit={form.handleSubmit(handleLogin)}
-            className="space-y-5">
-<FieldGroup>
-              {/* Email */}
-               <Controller
+              onSubmit={form.handleSubmit(handleLogin)}
+              className="space-y-5"
+            >
+              <FieldGroup>
+                {/* Email */}
+                <Controller
                   name="email"
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="email">Email Address<span className="text-primary">*</span></FieldLabel>
+                      <FieldLabel htmlFor="email">
+                        Email Address<span className="text-primary">*</span>
+                      </FieldLabel>
 
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -195,13 +184,15 @@ export default function LoginPage() {
                   )}
                 />
 
-              {/* Password */}
-               <Controller
+                {/* Password */}
+                <Controller
                   name="password"
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="password">Password<span className="text-primary">*</span></FieldLabel>
+                      <FieldLabel htmlFor="password">
+                        Password<span className="text-primary">*</span>
+                      </FieldLabel>
 
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -235,9 +226,7 @@ export default function LoginPage() {
                     </Field>
                   )}
                 />
-
-             
-</FieldGroup>
+              </FieldGroup>
               <Button type="submit" className="h-11 w-full gap-2">
                 Login
                 <ArrowRight size={17} />
@@ -258,8 +247,12 @@ export default function LoginPage() {
               className="h-11 w-full gap-3"
               onClick={handleGoogleLogin}
             >
-              <span className="font-bold text-lg">G</span>
-              Continue with Google
+              <img
+                className="h-4 w-4 object-contain"
+                src="/Google-logo.svg.webp"
+                alt="Google"
+              />
+               Google
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
