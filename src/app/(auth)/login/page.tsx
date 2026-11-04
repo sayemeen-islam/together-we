@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Leaf,
   Users,
+  Users2,
 } from "lucide-react";
 
 
@@ -90,7 +91,7 @@ export default function LoginPage() {
         <section className="hidden space-y-6 md:block">
           <Link href="/" className="inline-flex items-center gap-2">
             <div className="rounded-xl bg-primary p-2.5 text-primary-foreground">
-              <HeartHandshake size={28} />
+              <Users size={28} />
             </div>
             <span className="text-2xl font-bold text-foreground">
               Together<span className="text-primary">We</span>

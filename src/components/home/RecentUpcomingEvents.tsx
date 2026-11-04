@@ -18,7 +18,7 @@ export default async function RecentUpcomingEvents() {
   const events: TEvent[] = await res.json();
 
   return (
-    <section className="bg-[#FAF8F5] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+    <section id="recent-upcoming-events" className="bg-[#FAF8F5] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
@@ -28,7 +28,7 @@ export default async function RecentUpcomingEvents() {
             </span>
 
             <h2 className="mt-3 text-3xl font-bold text-[#30352B] sm:text-4xl">
-              Upcoming Events
+             Recent Upcoming Events
             </h2>
 
             <p className="mt-3 max-w-xl text-sm leading-7 text-[#77766F] sm:text-base">

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   CalendarDays,
-  ChevronDown,
   PlusCircle,
   Settings,
   Users,
@@ -23,31 +22,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function Navbar() {
-  // Temporary UI state.
-  // Replace these with your actual authentication data.
-  // const isLoggedIn = true;
+  const { data: session } = authClient.useSession();
+  console.log(session?.user, "from nav");
+  const user = session?.user;
+  const router = useRouter();
 
-const { data: session } = authClient.useSession()
-console.log(session?.user,'from nav');
-const user=session?.user
-const router=useRouter()
-
-const handleLogout=()=>{
-  authClient.signOut();
-  router.push('/login')
-  toast.success("You have been logged out successfully!");
-}
+  const handleLogout = () => {
+    authClient.signOut();
+    router.push("/login");
+    toast.success("Logged out successfully!");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
@@ -75,7 +64,7 @@ const handleLogout=()=>{
 
         {/* Authentication Actions */}
         <div className="flex items-center gap-3">
-           {!user ? (
+          {!user ? (
             <Link href="/login">
               <Button className="gap-2">
                 <LogIn size={16} />
@@ -87,7 +76,7 @@ const handleLogout=()=>{
               {/* Profile Picture with Display Name Tooltip */}
 
               <DropdownMenu>
-                      <DropdownMenuTrigger
+                <DropdownMenuTrigger
                   aria-label="Open profile menu"
                   className="group relative flex size-10 items-center justify-center rounded-full outline-none"
                 >
@@ -107,52 +96,53 @@ const handleLogout=()=>{
                   </span>
                 </DropdownMenuTrigger>
 
-                      <DropdownMenuContent align="end" className="w-56">
-                        <DropdownMenuGroup>
-                        <DropdownMenuLabel>
-                          <div className="flex flex-col gap-1">
-                            <span className="font-semibold text-foreground">
-                              {user.name}
-                            </span>
-                            <span className="text-xs font-normal text-muted-foreground">
-                              My Account
-                            </span>
-                          </div>
-                        </DropdownMenuLabel>
-</DropdownMenuGroup>
-                        <DropdownMenuSeparator />
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col gap-1">
+                        <span className="font-semibold text-foreground">
+                          {user.name}
+                        </span>
+                        <span className="text-xs font-normal text-muted-foreground">
+                          My Account
+                        </span>
+                      </div>
+                    </DropdownMenuLabel>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
 
-                        <DropdownMenuItem >
-                          <Link href="/create-event">
-                            <PlusCircle className="mr-2 size-4" />
-                            Create Event
-                          </Link>
-                        </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/create-event">
+                      <PlusCircle className="mr-2 size-4" />
+                      Create Event
+                    </Link>
+                  </DropdownMenuItem>
 
-                        <DropdownMenuItem >
-                          <Link href="/manage-events">
-                            <Settings className="mr-2 size-4" />
-                            Manage Events
-                          </Link>
-                        </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/manage-events">
+                      <Settings className="mr-2 size-4" />
+                      Manage Events
+                    </Link>
+                  </DropdownMenuItem>
 
-                        <DropdownMenuItem >
-                          <Link href="/joined-events">
-                            <CalendarDays className="mr-2 size-4" />
-                            Joined Events
-                          </Link>
-                        </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/joined-events">
+                      <CalendarDays className="mr-2 size-4" />
+                      Joined Events
+                    </Link>
+                  </DropdownMenuItem>
 
-                        <DropdownMenuSeparator />
+                  <DropdownMenuSeparator />
 
-                        <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleLogout}>
-                          <LogOut className="mr-2 size-4" />
-                          Logout
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-              
-             
+                  <DropdownMenuItem
+                    className="text-destructive focus:text-destructive"
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="mr-2 size-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           )}
         </div>

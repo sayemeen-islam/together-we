@@ -36,7 +36,7 @@ const galleryImages = [
 
 export default function Gallery() {
   return (
-    <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+    <section id="gallery" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#687A45]">
