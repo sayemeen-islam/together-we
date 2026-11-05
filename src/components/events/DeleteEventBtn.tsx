@@ -46,9 +46,9 @@ export default function DeleteEventBtn({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <button className="flex h-11 w-full flex-1 items-center justify-center gap-2 rounded-lg border border-primary/30 px-3 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground">
-          <Trash2 size={15} />
-          Delete
+        <button className="flex h-11 w-full flex-1 items-center justify-center gap-0.5 rounded-lg border border-primary/30 px-3 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground">
+          <Trash2 size={16} className="shrink-0" />
+          <span>Delete</span>
         </button>
       </AlertDialogTrigger>
 

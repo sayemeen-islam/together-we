@@ -137,10 +137,10 @@ export default function EditEventDialog({ event }: { event: TEvent }) {
       <DialogTrigger>
         <Button
           variant="outline"
-          className="h-11 flex-1 w-full border-secondary text-secondary font-semibold hover:bg-secondary dark:hover:bg-secondary hover:text-secondary-foreground"
+          className="h-11 flex-1 w-full gap-1 border-secondary text-secondary font-semibold hover:bg-secondary dark:hover:bg-secondary hover:text-secondary-foreground"
         >
-          <Pencil size={15} />
-          Edit
+          <Pencil size={15} className="shrink-0"/>
+          <span>Edit</span>
         </Button>
       </DialogTrigger>
 
