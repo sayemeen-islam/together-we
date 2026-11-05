@@ -1,5 +1,5 @@
 <h1 align="left">
-  <img src="./public/logo.png" alt="Together We Logo" width="45" height="45" />
+  <img src="./public/logo.png" alt="Together We Logo" width="40" align="top" />
   Together We
 </h1>
 
