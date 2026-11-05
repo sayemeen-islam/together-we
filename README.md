@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="left">
+  <img src="./public/logo.png" alt="Together We Logo" width="45" height="45" />
+  Together We
+</h1>
 
-## Getting Started
+**Together We** is a community service and social development platform that connects people through meaningful local events and initiatives. Users can explore upcoming events, participate in community activities, create their own initiatives, and manage the events they organize.
 
-First, run the development server:
+## 🌐 Live Website
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[Visit Together We](https://togetherwe-connect.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Frontend
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Base UI
+- Lucide React
+- React Hook Form
+- Zod
+- Sonner
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Authentication & Authorization
+- Better Auth
+- MongoDB Adapter
+- JWT
 
-## Learn More
+### Backend
+- Express.js
+- MongoDB
+- JavaScript
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Upcoming Events:** Explore upcoming community service events and initiatives.
+- **Event Details:** View event descriptions, locations, dates, organizers, and participant counts.
+- **User Authentication:** Register and log in using email and password or Google authentication.
+- **Create Events:** Organize new community events by providing event details.
+- **Join Events:** Participate in events that interest you.
+- **Joined Events:** View all the events you have joined.
+- **Manage Events:** Edit or delete events you have created.
+- **Protected Routes:** Restrict private pages and verify user authorization.
+- **Form Validation:** Validate user input with React Hook Form and Zod.
+- **Loading Skeletons & Error Handling:** Improve the user experience during loading and unexpected errors.
+- **Dark & Light Themes:** Switch between light and dark modes.
+- **Responsive Design:** Enjoy a consistent experience across mobile, tablet, and desktop devices.
