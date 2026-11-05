@@ -34,7 +34,14 @@ export default async function EventDetailsPage({
   }
 
   const event: TEvent = await res.json();
- 
+   const formattedDate = new Date(event?.eventDate).toLocaleDateString(
+    "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
   return (
     <main className="min-h-screen bg-background text-foreground mb-15">
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12">
@@ -95,7 +102,7 @@ export default async function EventDetailsPage({
                       Event Date
                     </p>
                     <p className="mt-1 font-semibold text-card-foreground">
-                      {event.eventDate}
+                      {formattedDate}
                     </p>
                   </div>
                 </div>
@@ -174,7 +181,7 @@ export default async function EventDetailsPage({
             <div className="my-6 space-y-4 border-y border-border py-5">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <CalendarDays size={18} className="text-primary" />
-                <span>{event.eventDate}</span>
+                <span>{formattedDate}</span>
               </div>
 
               <div className="flex items-center gap-3 text-sm text-muted-foreground">

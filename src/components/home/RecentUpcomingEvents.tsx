@@ -1,21 +1,30 @@
+
 import EventCard from "@/components/events/EventCard";
 import { TEvent } from "@/lib/type";
 import Link from "next/link";
 import { ArrowRight, CalendarDays } from "lucide-react";
 
 export default async function RecentUpcomingEvents() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events/recent`,
-    {
-      cache: "no-store",
+  let events: TEvent[] = [];
+  let hasError = false;
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/events/recent`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch recent events: ${res.status}`);
     }
-  );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch recent events");
+    events = await res.json();
+  } catch (error) {
+    console.error("Recent upcoming events error:", error);
+    hasError = true;
   }
-
-  const events: TEvent[] = await res.json();
 
   return (
     <section
@@ -49,7 +58,20 @@ export default async function RecentUpcomingEvents() {
           </Link>
         </div>
 
-        {events.length > 0 ? (
+        {hasError ? (
+          <div className="rounded-2xl border border-dashed border-border bg-card px-5 py-14 text-center">
+            <CalendarDays
+              size={36}
+              className="mx-auto text-secondary"
+            />
+            <h3 className="mt-4 text-xl font-bold text-card-foreground">
+              Unable to Load Events
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              We couldn&apos;t load upcoming events right now. Please try again later.
+            </p>
+          </div>
+        ) : events.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {events.map((event) => (
               <EventCard key={event._id} event={event} />

@@ -1,19 +1,17 @@
 "use client";
-
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
-import React from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const StartInitiativeBtn = () => {
   const { data: session } = authClient.useSession();
-
+  const router = useRouter();
   const handleInitiative = () => {
     if (!session?.user) {
       toast.info("Please login to continue");
     }
     if (session?.user) {
-      redirect("/create-event");
+      router.push("/create-event");
     }
   };
 

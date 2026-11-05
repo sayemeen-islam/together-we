@@ -74,7 +74,7 @@ export default function RegisterPage() {
   });
 
   const handleRegister = async (formData: RegisterFormValues) => {
-    console.log(formData, "form data");
+
     const { data, error } = await authClient.signUp.email({
       ...formData,
     });
@@ -225,14 +225,14 @@ export default function RegisterPage() {
                   )}
                 />
 
-                {/* Profile Image */}
+                {/* Profile Photo */}
                 <Controller
                   name="image"
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor="image">
-                        Profile Image URL (Optional)
+                        Profile Photo URL (Optional)
                       </FieldLabel>
 
                       <Input

@@ -52,8 +52,8 @@ const eventSchema = z.object({
   eventDate: z
     .string()
     .refine(
-      (date) => date > getToday(),
-      "Event date must be in the future"
+      (date) => date >= getToday(),
+      "Event date cannot be in the past"
     ),
 });
 

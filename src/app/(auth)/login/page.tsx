@@ -56,13 +56,12 @@ export default function LoginPage() {
     },
   });
   const handleLogin = async (formData: RegisterFormValues) => {
-    console.log(formData, "from login page");
 
     const { data, error } = await authClient.signIn.email({
       ...formData,
     });
     if (error) {
-      toast.error(error.message || "Registration failed.");
+      toast.error(error.message || "Login failed.");
       return;
     }
 

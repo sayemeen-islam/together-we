@@ -50,7 +50,7 @@ const eventSchema = z.object({
   eventDate: z
     .string()
     .min(1, "This field is required.")
-    .refine((date) => date > getToday(), "Event date must be in the future"),
+    .refine((date) => date >= getToday(), "Event date cannot be in the past"),
 });
 
 type EventFormValues = z.infer<typeof eventSchema>;
