@@ -23,6 +23,11 @@ export const metadata: Metadata = {
     "TogetherWe is a community-driven platform where people discover, create, and join social development events to make a positive impact together.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
